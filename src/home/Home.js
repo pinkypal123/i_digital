@@ -10,7 +10,7 @@ export default function Home() {
         fetch(' https://dummyjson.com/products?limit=100').then((res) => {
             return res.json()
         }).then((data) => {
-            // console.log(data.products)
+            console.log(data.products)
             setPost(data.products)
         })
     }, [])
@@ -21,32 +21,34 @@ export default function Home() {
         setPost(filterTitle)
     }
     function priceSearch(e) {
+        console.log(e.target.value)
         let filterPrice = post.filter((el) => {
-            return el.price === e.target.value
+            console.log(el.price)
+            return Math.round(e.target.value)==Math.round(el.price)
+
         })
         setPost(filterPrice)
+        // console.log(filterPrice)
     }
     function ratingSearch(e) {
         let filterRating = post.filter((el) => {
-            return el.rating === e.target.value
+            return e.target.value == el.rating
         })
         setPost(filterRating)
     }
     function discountSearch(e) {
-        let filterDiscount = post.filter((el) => {
-            return el.discountPercentage === e.target.value
-        })
-        setPost(filterDiscount)
+        // let filterDiscount = post.filter((el) => {
+        //     return el.discountPercentage === e.target.value
+        // })
+        // setPost(filterDiscount)
+        console.log(e.target.value)
     }
     const addToCart = (e) => {
-        console.log(e.target.id)
-        let cartValue = post.map((el) => {
+        console.log(e.target.value)
+        let cartValue = post.filter((el) => {
            if(e.target.id==el.id){
             console.log(el)
             return el
-           }
-           else{
-            return;
            }
            
         })
@@ -68,7 +70,7 @@ export default function Home() {
                         <input type="text" onChange={(e) => discountSearch(e)}></input><button className="btn">Discount</button>
                     </div>
                     <div className="input">
-                        <input type="number" onChange={(e) => priceSearch(e)}></input><button className="btn">Price</button>
+                        <input type="text" onChange={(e) => priceSearch(e)}></input><button className="btn">Price</button>
                     </div>
                     <div className="input">
                         <input type="number" onChange={(e) => ratingSearch(e)}></input><button className="btn">Rating</button>
@@ -93,14 +95,9 @@ export default function Home() {
             </div>
 
             <div className="cartConatiner">
-                {cartItem}
-                <div>Cart</div>
                 {
                     cartItem.map((el) => {
                         return <div className="cartProducts">
-                            {/* <div className="cartImage">
-                                <img src={el.images[0]}/>
-                            </div> */}
                             <div className="cartTitle">
                                 <div className="cartPrice">${el.price}</div>
                                 <div className="cartTitle">{el.title}</div>
