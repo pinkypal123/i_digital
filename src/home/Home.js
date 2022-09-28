@@ -24,7 +24,9 @@ export default function Home() {
         console.log(e.target.value)
         let filterPrice = post.filter((el) => {
             console.log(el.price)
-            return Math.round(e.target.value)==Math.round(el.price)
+            if(e.target.value==el.price){
+                return el
+            }
 
         })
         setPost(filterPrice)
@@ -32,16 +34,19 @@ export default function Home() {
     }
     function ratingSearch(e) {
         let filterRating = post.filter((el) => {
-            return e.target.value == el.rating
+            if(e.target.value==el.rating){
+                return el
+            }
         })
         setPost(filterRating)
     }
     function discountSearch(e) {
-        // let filterDiscount = post.filter((el) => {
-        //     return el.discountPercentage === e.target.value
-        // })
-        // setPost(filterDiscount)
-        console.log(e.target.value)
+        let filterDiscount = post.filter((el) => {
+            if(e.target.value==el.discountPercentage){
+            return el
+            }
+        })
+        setPost(filterDiscount)
     }
     const addToCart = (e) => {
         console.log(e.target.value)
